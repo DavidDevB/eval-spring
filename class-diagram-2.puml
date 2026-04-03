@@ -1,0 +1,63 @@
+@startuml spring_layers
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+
+skinparam class {
+  BackgroundColor #EEEDFE
+  BorderColor #534AB7
+}
+skinparam interface {
+  BackgroundColor #E1F5EE
+  BorderColor #0F6E56
+}
+
+interface TaskRepository {
+  + findByOwner(user : User) : List<Task>
+  + findByStatus(status : TaskStatus) : List<Task>
+  + findAllPublic() : List<Task>
+}
+note right of TaskRepository : extends JpaRepository<Task, Long>
+
+interface UserRepository {
+  + findByUsername(name : String) : Optional<User>
+  + existsByEmail(email : String) : boolean
+}
+note right of UserRepository : extends JpaRepository<User, Long>
+
+interface TaskService {
+  + getAllTasks() : List<Task>
+  + getTaskById(id : Long) : Task
+  + createTask(dto : TaskDto, user : User) : Task
+  + updateTask(id : Long, dto : TaskDto) : Task
+  + deleteTask(id : Long) : void
+}
+
+class TaskServiceImpl <<service>> {
+  - taskRepo : TaskRepository
+  - userRepo : UserRepository
+}
+
+class TaskController <<controller>> {
+  - service : TaskService
+  --
+  + GET    /tasks
+  + GET    /tasks/{id}
+  + POST   /tasks
+  + PUT    /tasks/{id}
+  + DELETE /tasks/{id}
+}
+
+class AuthController <<controller>> {
+  --
+  + POST /register
+  + POST /login
+}
+
+TaskServiceImpl ..|> TaskService
+TaskServiceImpl --> TaskRepository
+TaskServiceImpl --> UserRepository
+TaskController  --> TaskService
+AuthController  --> UserRepository
+
+@enduml

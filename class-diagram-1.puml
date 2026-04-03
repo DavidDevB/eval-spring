@@ -1,0 +1,48 @@
+@startuml domain
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+skinparam classBackgroundColor #EEEDFE
+skinparam classBorderColor #534AB7
+skinparam stereotypeCBackgroundColor #E1F5EE
+skinparam stereotypeCBorderColor #0F6E56
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum Role {
+  ROLE_USER
+  ROLE_ADMIN
+}
+
+class User {
+  - id : Long
+  - username : String
+  - password : String
+  - email : String
+  - role : Role
+  --
+  + getTasks() : List<Task>
+  + getAuthorities() : Collection
+}
+
+class Task {
+  - id : Long
+  - title : String
+  - description : String
+  - status : TaskStatus
+  - createdAt : LocalDate
+  - dueDate : LocalDate
+  --
+  + isOwnedBy(user : User) : boolean
+  + isCompleted() : boolean
+}
+
+User "1" *-- "*" Task : owner
+User --> Role
+Task --> TaskStatus
+
+@enduml

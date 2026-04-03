@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To do List</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f5f5f5;
+    font-family: 'Noto Sans', sans-serif;
+    color: #111;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: #fff;
+    text-align: center;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  header h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #111;
+  }
+
+  /* ── Main layout ── */
+  main {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 40px;
+  }
+
+  /* ── Form section (left, top) ── */
+  .form-section {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 20px;
+  }
+
+  .new-task-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .new-task-row label {
+    font-size: 18px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .new-task-row input[type="text"] {
+    width: 220px;
+    height: 34px;
+    border: 1px solid #bbb;
+    background: #fff;
+    font-size: 15px;
+    padding: 0 8px;
+    outline: none;
+  }
+
+  .new-task-row input[type="text"]:focus {
+    border-color: #888;
+  }
+
+  /* ── Category pills ── */
+  .categories {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .category {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    color: #111;
+  }
+
+  .category input[type="radio"] { display: none; }
+
+  .category .icon {
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  .category:has(input:checked) {
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── Add task button ── */
+  .btn-add {
+    display: inline-block;
+    background: #f5c518;
+    border: 2px solid #c9a200;
+    color: #111;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 9px 22px;
+    cursor: pointer;
+    width: fit-content;
+    font-family: 'Noto Sans', sans-serif;
+    transition: background 0.15s;
+  }
+
+  .btn-add:hover { background: #e6b800; }
+
+  /* ── Tasks panel (right, top) ── */
+  .tasks-panel {
+    grid-column: 2;
+    grid-row: 1;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    min-height: 320px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tasks-panel h2,
+  .completed-panel h2 {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #111;
+  }
+
+  /* feather watermark */
+  .feather-bg {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 180px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  /* ── Task items ── */
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .task-item:last-child { border-bottom: none; }
+
+  .task-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #f5c518;
+  }
+
+  .task-item .cat-badge {
+    font-size: 12px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    padding: 1px 6px;
+    color: #555;
+  }
+
+  .task-item span { flex: 1; }
+
+  .task-item.done span {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+
+  /* ── Completed panel (bottom, centered) ── */
+  .completed-panel {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    min-height: 160px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .completed-panel h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .reset-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+    padding: 0;
+    line-height: 1;
+    transition: transform 0.3s;
+  }
+
+  .reset-btn:hover { transform: rotate(180deg); }
+
+  .feather-bg-sm {
+    position: absolute;
+    bottom: -8px;
+    right: 10px;
+    width: 110px;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+
+  .empty-msg {
+    text-align: center;
+    color: #bbb;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>To do List</h1>
+</header>
+
+<main>
+  <!-- Form section -->
+  <section class="form-section">
+    <div class="new-task-row">
+      <label for="taskInput">New task:</label>
+      <input type="text" id="taskInput" placeholder="" />
+    </div>
+
+    <div class="categories">
+      <label class="category">
+        <input type="radio" name="category" value="Work" checked />
+        <span>Work</span>
+        <span class="icon">💼</span>
+      </label>
+      <label class="category">
+        <input type="radio" name="category" value="Shopping" />
+        <span>Shopping</span>
+        <span class="icon">🛒</span>
+      </label>
+      <label class="category">
+        <input type="radio" name="category" value="Health" />
+        <span>Health</span>
+        <span class="icon">🩺</span>
+      </label>
+      <label class="category">
+        <input type="radio" name="category" value="Personal" />
+        <span>Personal</span>
+        <span class="icon">👤</span>
+      </label>
+      <label class="category">
+        <input type="radio" name="category" value="Other" />
+        <span>Other</span>
+        <span class="icon">❓</span>
+      </label>
+    </div>
+
+    <button class="btn-add" onclick="addTask()">Add task</button>
+  </section>
+
+  <!-- Tasks panel -->
+  <section class="tasks-panel">
+    <h2>Tasks</h2>
+    <ul class="task-list" id="taskList"></ul>
+    <!-- Feather SVG watermark -->
+    <svg class="feather-bg" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10 C80 30, 20 60, 10 150" stroke="#90b8c8" stroke-width="3" fill="none"/>
+      <path d="M100 10 C90 40, 60 70, 10 150" stroke="#90b8c8" stroke-width="2" fill="none"/>
+      <path d="M100 10 C70 50, 30 90, 10 150" stroke="#90b8c8" stroke-width="1.5" fill="none"/>
+      <path d="M95 18 C75 35, 25 65, 12 145" stroke="#90b8c8" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M85 25 C68 42, 32 75, 14 148" stroke="#90b8c8" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M75 32 C62 48, 38 82, 16 150" stroke="#90b8c8" stroke-width="1" fill="none" opacity="0.4"/>
+      <path d="M10 150 Q30 155 50 148" stroke="#90b8c8" stroke-width="2" fill="none"/>
+      <path d="M10 150 Q20 160 35 158" stroke="#90b8c8" stroke-width="1.5" fill="none"/>
+    </svg>
+  </section>
+
+  <!-- Completed panel -->
+  <section class="completed-panel">
+    <h2>
+      Completed tasks
+      <button class="reset-btn" onclick="resetCompleted()" title="Reset completed tasks">↺</button>
+    </h2>
+    <ul class="task-list" id="completedList">
+      <li class="empty-msg" id="emptyMsg">No completed tasks yet.</li>
+    </ul>
+    <svg class="feather-bg-sm" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10 C80 30, 20 60, 10 150" stroke="#90b8c8" stroke-width="3" fill="none"/>
+      <path d="M100 10 C90 40, 60 70, 10 150" stroke="#90b8c8" stroke-width="2" fill="none"/>
+      <path d="M100 10 C70 50, 30 90, 10 150" stroke="#90b8c8" stroke-width="1.5" fill="none"/>
+      <path d="M10 150 Q30 155 50 148" stroke="#90b8c8" stroke-width="2" fill="none"/>
+    </svg>
+  </section>
+</main>
+
+<script>
+  function getCategory() {
+    return document.querySelector('input[name="category"]:checked').value;
+  }
+
+  function addTask() {
+    const input = document.getElementById('taskInput');
+    const title = input.value.trim();
+    if (!title) return;
+
+    const cat = getCategory();
+    const li = document.createElement('li');
+    li.className = 'task-item';
+    li.dataset.title = title;
+    li.dataset.cat = cat;
+    li.innerHTML = `
+      <input type="checkbox" onchange="completeTask(this)" />
+      <span>${title}</span>
+      <span class="cat-badge">${cat}</span>
+    `;
+    document.getElementById('taskList').appendChild(li);
+    input.value = '';
+  }
+
+  function completeTask(cb) {
+    const li = cb.closest('.task-item');
+    const title = li.dataset.title;
+    const cat = li.dataset.cat;
+    li.remove();
+
+    const completedList = document.getElementById('completedList');
+    document.getElementById('emptyMsg')?.remove();
+
+    const done = document.createElement('li');
+    done.className = 'task-item done';
+    done.innerHTML = `
+      <input type="checkbox" checked disabled />
+      <span>${title}</span>
+      <span class="cat-badge">${cat}</span>
+    `;
+    completedList.appendChild(done);
+  }
+
+  function resetCompleted() {
+    const list = document.getElementById('completedList');
+    list.innerHTML = '<li class="empty-msg" id="emptyMsg">No completed tasks yet.</li>';
+  }
+
+  document.getElementById('taskInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addTask();
+  });
+</script>
+
+</body>
+</html>

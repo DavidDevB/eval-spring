@@ -1,0 +1,43 @@
+@startuml sequence_create_task
+
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceParticipantBorderColor #534AB7
+skinparam sequenceParticipantBackgroundColor #EEEDFE
+skinparam sequenceLifeLineBorderColor #534AB7
+
+actor "Administrateur" as Admin
+
+participant "TaskController" as Controller
+participant "TaskService\n(interface)" as Service
+participant "TaskServiceImpl" as Impl
+participant "TaskRepository" as Repo
+database "Base de données" as DB
+
+Admin -> Controller : POST /tasks\n{ title, description }
+
+activate Controller
+Controller -> Service : createTask(dto, user)
+
+activate Impl
+Service -> Impl : (Spring injecte TaskServiceImpl)
+
+Impl -> Impl : new Task()\ntask.setTitle(dto.title)\ntask.setStatus(TODO)\ntask.setOwner(user)
+
+Impl -> Repo : save(task)
+activate Repo
+
+Repo -> DB : INSERT INTO task ...   
+activate DB
+DB --> Repo : task (avec id généré)
+deactivate DB
+
+Repo --> Impl : task sauvegardée
+deactivate Repo
+
+Impl --> Controller : task
+deactivate Impl
+
+Controller --> Admin : 201 Created\n{ id, title, status: TODO }
+deactivate Controller
+
+@enduml
