@@ -25,10 +25,11 @@ public class TaskController {
       all
         .stream()
         .filter(t -> !"done".equals(t.getStatus()))
+        .filter(t -> !"in_progress".equals(t.getStatus()))
         .toList()
     );
     model.addAttribute(
-      "inProgress",
+      "inProgressTasks",
       all
         .stream()
         .filter(t -> "in_progress".equals(t.getStatus()))
@@ -47,9 +48,10 @@ public class TaskController {
   @PostMapping("/add")
   public String add(
     @RequestParam String title,
-    @RequestParam String description
+    @RequestParam String description,
+    @RequestParam String type
   ) {
-    taskRepository.save(new Task(title, description, "todo", new Date()));
+    taskRepository.save(new Task(title, description, "todo", new Date(), type));
     return "redirect:/";
   }
 

@@ -10,11 +10,11 @@
         <textarea type="text" name="description"></textarea>
       </div>
       <div class="categories">
-        <span class="active">Work 🧳</span>
-        <span class="active">Shopping 🛒</span>
-        <span class="active">Health 💊</span>
-        <span class="active">Personal 👤</span>
-        <span class="active">Other ❓</span>
+        <input type="radio" name="type" class="active" method="post" value="work" th:action="@{/add}">Work 🧳</input>
+        <input type="radio" name="type" class="active" method="post" value="shopping" th:action="@{/add}">Shopping 🛒</input>
+        <input type="radio" name="type" class="active" method="post" value="health" th:action="@{/add}">Health 💊</input>
+        <input type="radio" name="type" class="active" method="post" value="personal" th:action="@{/add}">Personal 👤</input>
+        <input type="radio" name="type" class="active" method="post" value="other" th:action="@{/add}">Other ❓</input>
       </div>
       <button type="submit" class="btn-add">Add Task</button>
     </form>

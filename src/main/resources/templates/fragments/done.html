@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
   <div th:fragment="done">
-    <h2>Completed tasks ↺</h2>
+    <h2>Completed tasks</h2>
     <ul class="task-list">
       <li th:each="task : ${completedTasks}">
         <span th:text="${task.title}"></span>

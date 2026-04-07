@@ -17,12 +17,20 @@ public class Task {
   private Date dueDate;
   private String description;
   private String status;
+  private String type;
 
-  public Task(String title, String description, String status, Date dueDate) {
+  public Task(
+    String title,
+    String description,
+    String status,
+    Date dueDate,
+    String type
+  ) {
     this.title = title;
     this.dueDate = dueDate;
     this.description = description;
     this.status = status;
+    this.type = type;
   }
 
   public Task() {}
@@ -66,6 +74,14 @@ public class Task {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   @Override
