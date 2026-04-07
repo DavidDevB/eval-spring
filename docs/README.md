@@ -8,3 +8,7 @@ Ce dernier pourra enregistrer des tâches à effectuer et les afficher puis les 
 Celles-ci apparaîtront dans la section des tâches effectuées.
 
 Enfin, on pourra trier les tâches par date et catégories.
+
+Versions:
+- Java: 17
+- Spring Boot: 3.5.13
