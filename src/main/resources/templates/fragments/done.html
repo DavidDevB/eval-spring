@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
   <div th:fragment="done">
     <h2>Completed tasks ↺</h2>
-    <ul>
-      <li th:each="task : ${completedTasks}" th:text="${task.title}">Completed tasks</li>
-      <li th:if="${#lists.isEmpty(completedTasks)}">No completed tasks yet.</li>
+    <ul class="task-list">
+      <li th:each="task : ${completedTasks}">
+        <span th:text="${task.title}"></span>
+      </li>
+      <li th:if="${#lists.isEmpty(completedTasks)}" class="empty">No completed tasks yet.</li>
     </ul>
   </div>
-
 </body>
 </html>

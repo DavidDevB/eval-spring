@@ -1,22 +1,23 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
   <div th:fragment="form">
-    <p>New task: <input type="text" name="title" /></p>
-
-    <div>
-      <span>Work 🧳</span>
-      <span>Shopping 🛒</span>
-      <span>Health 💊</span>
-      <span>Personal 👤</span>
-      <span>Other ❓</span>
-    </div>
-
-    <button type="submit">ADD TASK</button>
+    <form th:action="@{/add}" method="post">
+      <div class="form-column">
+        <label>New task:</label>
+        <input type="text" name="title" />
+        <label>Description:</label>
+        <textarea type="text" name="description"></textarea>
+      </div>
+      <div class="categories">
+        <span class="active">Work 🧳</span>
+        <span class="active">Shopping 🛒</span>
+        <span class="active">Health 💊</span>
+        <span class="active">Personal 👤</span>
+        <span class="active">Other ❓</span>
+      </div>
+      <button type="submit" class="btn-add">Add Task</button>
+    </form>
   </div>
-
 </body>
 </html>

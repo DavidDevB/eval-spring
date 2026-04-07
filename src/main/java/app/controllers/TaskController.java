@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.dao.TaskRepository;
 import app.entities.Task;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,11 @@ public class TaskController {
   }
 
   @PostMapping("/add")
-  public String add(@RequestParam String title) {
-    taskRepository.save(new Task(title, "", "todo", null));
+  public String add(
+    @RequestParam String title,
+    @RequestParam String description
+  ) {
+    taskRepository.save(new Task(title, description, "todo", new Date()));
     return "redirect:/";
   }
 

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-
   <div th:fragment="tasks">
     <h2>Tasks</h2>
-    <ul>
-      <li th:each="task : ${tasks}" th:text="${task.title}">Tâche exemple</li>
+    <ul class="task-list">
+      <li th:each="task : ${tasks}">
+        <span th:text="${task.title}"></span>
+        <span th:text="${task.description}"></span>
+        <form th:action="@{/complete}" method="post" style="display:inline">
+          <button type="submit" name="id" th:value="${task.id}" class="btn-done">Done</button>
+        </form>
+      </li>
+      <li th:if="${#lists.isEmpty(tasks)}" class="empty">No pending tasks.</li>
     </ul>
   </div>
-
 </body>
 </html>

@@ -48,6 +48,100 @@
       padding: 1.5rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
+
+    /* Formulaire */
+ .form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-column input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.form-column textarea {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  height: 120px;
+  resize: vertical; /* l'utilisateur peut redimensionner verticalement */
+}
+
+  .categories {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .categories span {
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  .categories span.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .btn-add {
+    background: #f0c020;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  /* Tasks */
+  .panel-tasks h2,
+  .panel-done h2 {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+
+  .task-list { list-style: none; }
+
+  .task-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+  }
+
+  .btn-done {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  .empty {
+    color: #aaa;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  /* Done panel centré */
+  .panel-done {
+    justify-self: center;
+    width: 60%;
+  }
   </style>
 </head>
 <body>
