@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
   <div th:fragment="form">
-    <form th:action="@{/add}" method="post">
+    <form th:if="${user.role == 'admin'}" th:action="@{/add}" method="post">
       <div class="form-column">
         <label>New task:</label>
         <input type="text" name="title" />

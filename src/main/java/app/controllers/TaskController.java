@@ -42,6 +42,7 @@ public class TaskController {
         .filter(t -> "done".equals(t.getStatus()))
         .toList()
     );
+    model.addAttribute("loggedIn", false);
     return "index";
   }
 
