@@ -1,0 +1,91 @@
+package entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.util.Date;
+
+@Entity
+public class Task {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  private String title;
+  private Date dueDate;
+  private String description;
+  private String status;
+
+  public Task(String title, String description, String status, Date dueDate) {
+    this.title = title;
+    this.dueDate = dueDate;
+    this.description = description;
+    this.status = status;
+  }
+
+  public Task() {}
+
+  // Getters and Setters
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Date getDueDate() {
+    return dueDate;
+  }
+
+  public void setDueDate(Date dueDate) {
+    this.dueDate = dueDate;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  @Override
+  public String toString() {
+    return (
+      "Task{" +
+      "id=" +
+      id +
+      ", title='" +
+      title +
+      '\'' +
+      ", dueDate=" +
+      dueDate +
+      ", description='" +
+      description +
+      '\'' +
+      ", status='" +
+      status +
+      '\'' +
+      '}'
+    );
+  }
+}
