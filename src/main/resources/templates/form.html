@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout}">
+<body>
+
+  <div layout:fragment="form">
+    <p>New task: <input type="text" name="title" /></p>
+
+    <div>
+      <span>Work 🧳</span>
+      <span>Shopping 🛒</span>
+      <span>Health 💊</span>
+      <span>Personal 👤</span>
+      <span>Other ❓</span>
+    </div>
+
+    <button type="submit">ADD TASK</button>
+  </div>
+
+</body>
+</html>

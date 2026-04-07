@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+  <!-- Fragment 1 : formulaire -->
+  <div layout:fragment="form">
+    <th:block th:replace="~{fragments/form :: form}"></th:block>
+  </div>
+
+  <!-- Fragment 2 : liste des tâches -->
+  <div layout:fragment="tasks">
+    <th:block th:replace="~{fragments/tasks :: tasks}"></th:block>
+  </div>
+
+  <!-- Fragment 3 : tâches complétées -->
+  <div layout:fragment="done">
+    <th:block th:replace="~{fragments/done :: done}"></th:block>
+  </div>
+
+</html>

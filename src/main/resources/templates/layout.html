@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      
+<head>
+  <meta charset="UTF-8">
+  <title>To do List</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+    }
+
+    header {
+      background: white;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 2px solid #ddd;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "form   tasks"
+        "done   done";
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .panel-form     { grid-area: form; }
+    .panel-tasks    { grid-area: tasks; }
+    .panel-done     { grid-area: done; }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>To do List</h1>
+  </header>
+
+  <main>
+    <div class="panel-form">
+      <div layout:fragment="form"></div>
+    </div>
+
+    <div class="panel-tasks card">
+      <div layout:fragment="tasks"></div>
+    </div>
+
+    <div class="panel-done card">
+      <div layout:fragment="done"></div>
+    </div>
+  </main>
+
+</body>
+</html>
