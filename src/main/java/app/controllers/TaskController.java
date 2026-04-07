@@ -49,7 +49,18 @@ public class TaskController {
     @RequestParam String title,
     @RequestParam String description
   ) {
-    taskRepository.save(new Task(title, description, "inProgress", new Date()));
+    taskRepository.save(new Task(title, description, "todo", new Date()));
+    return "redirect:/";
+  }
+
+  @PostMapping("/inProgress")
+  public String inProgress(@RequestParam Long id) {
+    taskRepository
+      .findById(id)
+      .ifPresent(t -> {
+        t.setStatus("in_progress");
+        taskRepository.save(t);
+      });
     return "redirect:/";
   }
 
