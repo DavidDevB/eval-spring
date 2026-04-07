@@ -7,9 +7,6 @@
       <li th:each="task : ${tasks}">
         <span th:text="${task.title}"></span>
         <span th:text="${task.description}"></span>
-        <form th:action="@{/complete}" method="post" style="display:inline">
-          <button type="submit" name="id" th:value="${task.id}" class="btn-done">Done</button>
-        </form>
       </li>
       <li th:if="${#lists.isEmpty(tasks)}" class="empty">No pending tasks.</li>
     </ul>

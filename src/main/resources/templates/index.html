@@ -13,6 +13,11 @@
     <th:block th:replace="~{fragments/tasks :: tasks}"></th:block>
   </div>
 
+  <!-- Fragment 3 : tâches en cours -->
+  <div layout:fragment="inProgress">
+    <th:block th:replace="~{fragments/progress :: inProgress}"></th:block>
+  </div>
+
   <!-- Fragment 3 : tâches complétées -->
   <div layout:fragment="done">
     <th:block th:replace="~{fragments/done :: done}"></th:block>

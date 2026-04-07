@@ -28,6 +28,13 @@ public class TaskController {
         .toList()
     );
     model.addAttribute(
+      "inProgress",
+      all
+        .stream()
+        .filter(t -> "in_progress".equals(t.getStatus()))
+        .toList()
+    );
+    model.addAttribute(
       "completedTasks",
       all
         .stream()
@@ -42,7 +49,7 @@ public class TaskController {
     @RequestParam String title,
     @RequestParam String description
   ) {
-    taskRepository.save(new Task(title, description, "todo", new Date()));
+    taskRepository.save(new Task(title, description, "inProgress", new Date()));
     return "redirect:/";
   }
 

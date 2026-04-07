@@ -14,11 +14,12 @@
     }
 
     header {
-      background: white;
-      text-align: center;
-      padding: 1rem;
-      border-bottom: 2px solid #ddd;
-    }
+  background: white;
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 1rem;
+}
 
     header h1 {
       font-size: 2.5rem;
@@ -26,28 +27,23 @@
     }
 
     main {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      grid-template-areas:
-        "form   tasks"
-        "done   done";
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "form       tasks"
+    "inprogress done";
+  gap: 2.5rem;
+  padding: 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    .panel-form     { grid-area: form; }
-    .panel-tasks    { grid-area: tasks; }
-    .panel-done     { grid-area: done; }
-
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
 
     /* Formulaire */
  .form-column {
@@ -139,7 +135,6 @@
 
   /* Done panel centré */
   .panel-done {
-    justify-self: center;
     width: 60%;
   }
   </style>
@@ -157,6 +152,10 @@
 
     <div class="panel-tasks card">
       <div layout:fragment="tasks"></div>
+    </div>
+
+    <div class="panel-inProgress card">
+      <div layout:fragment="inProgress"></div>
     </div>
 
     <div class="panel-done card">
