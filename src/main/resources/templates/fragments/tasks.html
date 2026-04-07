@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout}">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <body>
 
-  <div layout:fragment="tasks">
+  <div th:fragment="tasks">
     <h2>Tasks</h2>
     <ul>
       <li th:each="task : ${tasks}" th:text="${task.title}">Tâche exemple</li>

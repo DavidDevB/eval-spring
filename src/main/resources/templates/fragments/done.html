@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout}">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <body>
 
-  <div layout:fragment="done">
+  <div th:fragment="done">
     <h2>Completed tasks ↺</h2>
     <ul>
       <li th:each="task : ${completedTasks}" th:text="${task.title}">Completed tasks</li>
