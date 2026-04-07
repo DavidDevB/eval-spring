@@ -24,6 +24,7 @@ public class User {
 
   public User() {}
 
+  // Getters and Setters
   public String getUsername() {
     return username;
   }
