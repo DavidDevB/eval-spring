@@ -3,6 +3,11 @@
 <body>
   <div th:fragment="tasks">
     <h2>Tasks</h2>
+  <form th:action="@{/search}" method="post">
+    <label for="research">Search:</label>
+    <input type="text" id="research" placeholder="Search" th:value="${query}" name="query"/>
+    <button type="submit" class="btn-add">Search</button>
+  </form>
     <ul class="task-list">
       <li th:each="task : ${tasks}">
         <span th:text="${task.title}"></span>

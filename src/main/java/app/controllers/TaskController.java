@@ -82,4 +82,23 @@ public class TaskController {
       });
     return "redirect:/";
   }
+
+  @PostMapping("/search")
+  public String search(
+    @RequestParam String query,
+    Model model,
+    HttpSession session
+  ) {
+    User user = (User) session.getAttribute("user");
+    model.addAttribute("user", user);
+    List<Task> all = taskRepository.findAll();
+    model.addAttribute(
+      "tasks",
+      all
+        .stream()
+        .filter(t -> t.getTitle().toLowerCase().contains(query.toLowerCase()))
+        .toList()
+    );
+    return "index";
+  }
 }
