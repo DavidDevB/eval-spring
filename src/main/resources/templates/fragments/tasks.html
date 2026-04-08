@@ -3,7 +3,7 @@
 <body>
   <div th:fragment="tasks">
     <h2>Tasks</h2>
-  <form th:action="@{/search}" method="post">
+  <form th:if="${user != null}" th:action="@{/search}" method="post">
     <label for="research">Search:</label>
     <input type="text" id="research" placeholder="Search" th:value="${query}" name="query"/>
     <button type="submit" class="btn-add">Search</button>
@@ -17,10 +17,11 @@
         <span th:switch="${task.type}" th:case="health" >💊</span>
         <span th:switch="${task.type}" th:case="personal">👤</span>
         <span th:switch="${task.type}" th:case="other">❓</span>
-        <form th:action="@{/delete}" method="post" style="display:inline">
+        <a th:if="${user != null}" class="btn-edit" th:href="@{/edit/{id}(id=${task.id})}">Edit</a>
+        <form th:if="${user != null}" th:action="@{/delete}" method="post" style="display:inline">
           <button type="submit" name="id" th:value="${task.id}" class="btn-delete">Delete</button>
         </form>
-        <form th:action="@{/inProgress}" method="post" style="display:inline">
+        <form th:if="${user != null}" th:action="@{/inProgress}" method="post" style="display:inline">
           <button type="submit" name="id" th:value="${task.id}" class="btn-done">Do</button>
         </form>
       </li>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -113,5 +114,32 @@ public class TaskController {
         .toList()
     );
     return "index";
+  }
+
+  @GetMapping("/edit/{id}")
+  public String modify(
+    @PathVariable Long id,
+    Model model,
+    HttpSession session
+  ) {
+    User user = (User) session.getAttribute("user");
+    model.addAttribute("user", user);
+    model.addAttribute("task", taskRepository.findById(id).get());
+    return "edit/edit";
+  }
+
+  @PostMapping("/edit/{id}")
+  public String edit(
+    @PathVariable Long id,
+    @RequestParam String title,
+    @RequestParam String description,
+    @RequestParam String type
+  ) {
+    Task task = taskRepository.findById(id).get();
+    task.setTitle(title);
+    task.setDescription(description);
+    task.setType(type);
+    taskRepository.save(task);
+    return "redirect:/";
   }
 }
