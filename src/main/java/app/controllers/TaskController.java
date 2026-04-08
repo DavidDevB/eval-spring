@@ -83,6 +83,19 @@ public class TaskController {
     return "redirect:/";
   }
 
+  @PostMapping("/delete")
+  public String delete(
+    @RequestParam Long id,
+    Model model,
+    HttpSession session
+  ) {
+    User user = (User) session.getAttribute("user");
+    model.addAttribute("user", user);
+    taskRepository.deleteById(id);
+    model.addAttribute("tasks", taskRepository.findAll());
+    return "index";
+  }
+
   @PostMapping("/search")
   public String search(
     @RequestParam String query,
