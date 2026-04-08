@@ -137,6 +137,20 @@
   .panel-done {
     width: 60%;
   }
+
+  .login, .logout {
+    display: inline-block;
+    background: #f0c020;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #111;
+  }
   </style>
 </head>
 <body>
@@ -144,8 +158,8 @@
   <header>
     <h1>To do List</h1>
     <div>
-      <a th:if="${!user.loggedIn}" th:href="@{/login}">Login</a>
-      <a th:if="${user.loggedIn}" th:href="@{/logout}">Logout</a>
+      <a class="login" th:if="${user == null}" th:href="@{/login}">Login</a>
+      <a class="logout" th:if="${user != null}" th:href="@{/logout}">Logout</a>
     </div>
   </header>
 

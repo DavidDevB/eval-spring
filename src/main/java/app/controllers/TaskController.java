@@ -2,6 +2,8 @@ package app.controllers;
 
 import app.dao.TaskRepository;
 import app.entities.Task;
+import app.entities.User;
+import jakarta.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class TaskController {
   private TaskRepository taskRepository;
 
   @GetMapping("/")
-  public String index(Model model) {
+  public String index(Model model, HttpSession session) {
     List<Task> all = taskRepository.findAll();
     model.addAttribute(
       "tasks",
@@ -42,7 +44,10 @@ public class TaskController {
         .filter(t -> "done".equals(t.getStatus()))
         .toList()
     );
-    model.addAttribute("loggedIn", false);
+    User user = (User) session.getAttribute("user");
+    if (user != null) {
+      model.addAttribute("user", user);
+    }
     return "index";
   }
 

@@ -15,13 +15,11 @@ public class User {
   private String username;
   private String password;
   private String role;
-  private boolean loggedIn;
 
-  public User(String username, String password, String role, boolean loggedIn) {
+  public User(String username, String password, String role) {
     this.username = username;
     this.password = password;
     this.role = role;
-    this.loggedIn = loggedIn;
   }
 
   public User() {}
@@ -49,14 +47,6 @@ public class User {
 
   public void setRole(String role) {
     this.role = role;
-  }
-
-  public boolean isLoggedIn() {
-    return loggedIn;
-  }
-
-  public void setLoggedIn(boolean loggedIn) {
-    this.loggedIn = loggedIn;
   }
 
   public String toString() {
