@@ -110,7 +110,23 @@ public class TaskController {
       "tasks",
       all
         .stream()
+        .filter(t -> !"in_progress".equals(t.getStatus()))
+        .filter(t -> !"done".equals(t.getStatus()))
         .filter(t -> t.getTitle().toLowerCase().contains(query.toLowerCase()))
+        .toList()
+    );
+    model.addAttribute(
+      "inProgressTasks",
+      all
+        .stream()
+        .filter(t -> "in_progress".equals(t.getStatus()))
+        .toList()
+    );
+    model.addAttribute(
+      "completedTasks",
+      all
+        .stream()
+        .filter(t -> "done".equals(t.getStatus()))
         .toList()
     );
     return "index";
